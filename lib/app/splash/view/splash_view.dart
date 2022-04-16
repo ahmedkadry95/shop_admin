@@ -11,7 +11,7 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SplashController>(
       onModelReady: (controller) async {
-        await controller.checkIsLogIn();
+        // await controller.checkIsLogIn();
         controller.splashNavigation();
       },
       builder: (context, controller, child) {

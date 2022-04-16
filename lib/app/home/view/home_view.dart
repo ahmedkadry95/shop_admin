@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:shop_admin/app/home/controller/home_controller.dart';
 import 'package:shop_admin/app/widgts/back_ground_mask.dart';
@@ -15,7 +14,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeController>(
-      onModelReady: (controller) async {},
+      onModelReady: (controller) async {
+        controller.getBanner();
+      },
       builder: (context, controller, child) {
         return Scaffold(
           backgroundColor: backgroundColor,
