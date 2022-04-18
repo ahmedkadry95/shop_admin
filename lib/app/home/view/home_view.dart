@@ -14,7 +14,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeController>(
-      onModelReady: (controller) async {},
+      onModelReady: (controller) async {
+        controller.createRandomId();
+      },
       builder: (context, controller, child) {
         return Scaffold(
           backgroundColor: backgroundColor,
@@ -93,6 +95,13 @@ class HomeView extends StatelessWidget {
                             ),
                           ),
                           heightSpace(20),
+                          TextFormField(
+                            controller: controller.storageController,
+                            decoration: const InputDecoration(
+                              hintText: 'add storage',
+                            ),
+                          ),
+                          heightSpace(20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -107,8 +116,12 @@ class HomeView extends StatelessWidget {
                                   category: controller.categoryController.text,
                                   measurementUnit:
                                       controller.measurementUnitController.text,
-                                  price: double.parse(controller.priceController.text),
-                                  quantity: double.parse(controller.quantityController.text),
+                                  price: double.parse(
+                                      controller.priceController.text),
+                                  quantity: double.parse(
+                                      controller.quantityController.text),
+                                  storage: double.parse(
+                                      controller.quantityController.text),
                                 );
                               }),
                             ],

@@ -1,8 +1,6 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -12,15 +10,23 @@ import 'package:shop_admin/base_controller.dart';
 import 'package:shop_admin/enums/screen_state.dart';
 import 'package:shop_admin/locator.dart';
 import 'package:shop_admin/services/navigation_service.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeController extends BaseController {
   File? _photo;
   final ImagePicker _picker = ImagePicker();
+  var uuid = const Uuid();
   var navigation = locator<NavigationService>();
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
   CollectionReference exclusiveOffer =
       FirebaseFirestore.instance.collection('exclusive_offer');
   String? imageUrl;
+  String? randomId;
+
+  createRandomId() {
+    randomId = uuid.v4();
+    print(randomId);
+  }
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -28,6 +34,7 @@ class HomeController extends BaseController {
   TextEditingController measurementUnitController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
+  TextEditingController storageController = TextEditingController();
 
   ProductModel productModel = ProductModel();
 
@@ -82,33 +89,37 @@ class HomeController extends BaseController {
     required String measurementUnit,
     required double price,
     required double quantity,
+    required double storage,
   }) async {
     exclusiveOffer
-        .add(
-      productModel.toJson(
-        title: title,
-        description: description,
-        image: imageUrl.toString(),
-        measurementUnit: measurementUnit,
-        price: price,
-        quantity: quantity,
-        storage: 10,
-        category: category,
-      ),
-    )
-        .then((value) {
+        .doc(randomId)
+        .set(
+          productModel.toJson(
+            title: title,
+            description: description,
+            image: imageUrl.toString(),
+            measurementUnit: measurementUnit,
+            price: price,
+            quantity: quantity,
+            storage: storage,
+            category: category,
+            id: randomId,
+          ),
+        )
+        .then((value) async {
+      await clearTextFields();
       print("Product Added");
-      dis();
     }).catchError((error) => print("Failed to add user: $error"));
   }
 
-  void dis() {
-    titleController.text == '';
-    descriptionController.text == '';
-    categoryController.text == '';
-    measurementUnitController.text == '';
-    priceController.text == '';
-    quantityController.text == '';
+  clearTextFields() {
+    titleController.clear();
+    descriptionController.clear();
+    categoryController.clear();
+    measurementUnitController.clear();
+    priceController.clear();
+    quantityController.clear();
+    storageController.clear();
     setState(ViewState.idel);
   }
 }
