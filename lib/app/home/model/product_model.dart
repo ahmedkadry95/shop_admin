@@ -1,14 +1,7 @@
 class ProductModel {
-  String? id,
-      title,
-      description,
-      image,
-      category,
-      measurementUnit,
-      price,
-      quantity;
+  String? id, title, description, image, category, measurementUnit;
 
-  double? storage;
+  double? storage, price, quantity;
 
   ProductModel({
     this.id,
@@ -22,7 +15,7 @@ class ProductModel {
     this.storage,
   });
 
-  ProductModel.fromJason(Map<String, dynamic> json) {
+  ProductModel.fromJason(json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];
@@ -30,7 +23,7 @@ class ProductModel {
     category = json['category'];
     measurementUnit = json['measurement_unit'];
     price = json['price'];
-    quantity = json['double'];
+    quantity = json['quantity'];
     storage = json['storage'];
   }
 
@@ -54,7 +47,6 @@ class ProductModel {
     data['measurement_unit'] = measurementUnit;
     data['price'] = price;
     data['quantity'] = quantity;
-    data['storage'] = storage;
     data['storage'] = storage;
     data['sold_times'] = 0;
     return data;
