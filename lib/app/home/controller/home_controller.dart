@@ -17,9 +17,10 @@ class HomeController extends BaseController {
   final ImagePicker _picker = ImagePicker();
   var uuid = const Uuid();
   var navigation = locator<NavigationService>();
-  FirebaseFirestore fireStore = FirebaseFirestore.instance;
   CollectionReference exclusiveOffer =
       FirebaseFirestore.instance.collection('exclusive_offer');
+  CollectionReference productRef =
+      FirebaseFirestore.instance.collection('products');
   String? imageUrl;
   String? randomId;
 
@@ -82,7 +83,33 @@ class HomeController extends BaseController {
     }
   }
 
-  addProduct({
+  pickProductImage(context) async {
+    //pick file
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      _photo = File(pickedFile.path);
+      var imageName = basename(pickedFile.path);
+      var bannerRef = FirebaseStorage.instance.ref('products/$imageName');
+      await bannerRef.putFile(_photo!);
+      imageUrl = await bannerRef.getDownloadURL();
+      print('imageUrl : ${imageUrl}');
+      AwesomeDialog(
+        context: context,
+        animType: AnimType.LEFTSLIDE,
+        headerAnimationLoop: false,
+        dialogType: DialogType.SUCCES,
+        showCloseIcon: true,
+        title: 'Succes',
+        desc: 'image add ',
+        btnOkOnPress: () {},
+        btnOkIcon: Icons.check_circle,
+        onDissmissCallback: (type) {},
+      ).show();
+    }
+  }
+
+  addExclusiveOffer({
+    required BuildContext context,
     required String title,
     required String description,
     required String category,
@@ -107,6 +134,60 @@ class HomeController extends BaseController {
           ),
         )
         .then((value) async {
+      AwesomeDialog(
+        context: context,
+        animType: AnimType.LEFTSLIDE,
+        headerAnimationLoop: false,
+        dialogType: DialogType.SUCCES,
+        showCloseIcon: true,
+        title: 'Succes',
+        desc: 'Product Added',
+        btnOkOnPress: () {},
+        btnOkIcon: Icons.check_circle,
+        onDissmissCallback: (type) {},
+      ).show();
+      await clearTextFields();
+    }).catchError((error) => print("Failed to add user: $error"));
+  }
+
+  addProduct({
+    required BuildContext context,
+    required String title,
+    required String description,
+    required String category,
+    required String measurementUnit,
+    required double price,
+    required double quantity,
+    required double storage,
+  }) async {
+    productRef
+        .doc(randomId)
+        .set(
+          productModel.toJson(
+            title: title,
+            description: description,
+            image: imageUrl.toString(),
+            measurementUnit: measurementUnit,
+            price: price,
+            quantity: quantity,
+            storage: storage,
+            category: category,
+            id: randomId,
+          ),
+        )
+        .then((value) async {
+      AwesomeDialog(
+        context: context,
+        animType: AnimType.LEFTSLIDE,
+        headerAnimationLoop: false,
+        dialogType: DialogType.SUCCES,
+        showCloseIcon: true,
+        title: 'Succes',
+        desc: 'Product Added',
+        btnOkOnPress: () {},
+        btnOkIcon: Icons.check_circle,
+        onDissmissCallback: (type) {},
+      ).show();
       await clearTextFields();
       print("Product Added");
     }).catchError((error) => print("Failed to add user: $error"));

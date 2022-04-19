@@ -105,10 +105,104 @@ class HomeView extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              button('pick image').onTap(() {
-                                controller.pickExclusiveOfferImage(context);
+                              button('pick image').onTap(
+                                () {
+                                  controller.pickExclusiveOfferImage(context);
+                                  controller.createRandomId();
+                                },
+                              ),
+                              button('add ').onTap(() {
+                                controller.addExclusiveOffer(
+                                  title: controller.titleController.text,
+                                  description:
+                                      controller.descriptionController.text,
+                                  category: controller.categoryController.text,
+                                  measurementUnit:
+                                      controller.measurementUnitController.text,
+                                  price: double.parse(
+                                      controller.priceController.text),
+                                  quantity: double.parse(
+                                      controller.quantityController.text),
+                                  storage: double.parse(
+                                      controller.quantityController.text),
+                                  context: context,
+                                );
                               }),
-                              button('add').onTap(() {
+                            ],
+                          ),
+                          heightSpace(15),
+                        ],
+                      ),
+                    ),
+                  ),
+                  heightSpace(30),
+                  Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Column(
+                        children: [
+                          heightSpace(15),
+                          blackTitle2('add Product'),
+                          heightSpace(20),
+                          TextFormField(
+                            controller: controller.titleController,
+                            decoration: const InputDecoration(
+                              hintText: 'add  title',
+                            ),
+                          ),
+                          heightSpace(20),
+                          TextFormField(
+                            controller: controller.descriptionController,
+                            decoration: const InputDecoration(
+                              hintText: 'add  description',
+                            ),
+                          ),
+                          heightSpace(20),
+                          TextFormField(
+                            controller: controller.categoryController,
+                            decoration: const InputDecoration(
+                              hintText: 'add  category',
+                            ),
+                          ),
+                          heightSpace(20),
+                          TextFormField(
+                            controller: controller.measurementUnitController,
+                            decoration: const InputDecoration(
+                              hintText: 'add  measurement Unit',
+                            ),
+                          ),
+                          heightSpace(20),
+                          TextFormField(
+                            controller: controller.priceController,
+                            decoration: const InputDecoration(
+                              hintText: 'add price',
+                            ),
+                          ),
+                          heightSpace(20),
+                          TextFormField(
+                            controller: controller.quantityController,
+                            decoration: const InputDecoration(
+                              hintText: 'add quantity',
+                            ),
+                          ),
+                          heightSpace(20),
+                          TextFormField(
+                            controller: controller.storageController,
+                            decoration: const InputDecoration(
+                              hintText: 'add storage',
+                            ),
+                          ),
+                          heightSpace(20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              button('pick image').onTap(
+                                () {
+                                  controller.pickProductImage(context);
+                                },
+                              ),
+                              button('add ').onTap(() {
                                 controller.addProduct(
                                   title: controller.titleController.text,
                                   description:
@@ -122,6 +216,7 @@ class HomeView extends StatelessWidget {
                                       controller.quantityController.text),
                                   storage: double.parse(
                                       controller.quantityController.text),
+                                  context: context,
                                 );
                               }),
                             ],

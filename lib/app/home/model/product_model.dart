@@ -55,7 +55,8 @@ class ProductModel {
     data['price'] = price;
     data['quantity'] = quantity;
     data['storage'] = storage;
-
+    data['storage'] = storage;
+    data['sold_times'] = 0;
     return data;
   }
 }
