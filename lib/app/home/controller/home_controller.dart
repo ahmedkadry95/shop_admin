@@ -26,6 +26,7 @@ class HomeController extends BaseController {
 
   createRandomId() {
     randomId = uuid.v4();
+    print('***************************');
     print(randomId);
   }
 
@@ -184,11 +185,13 @@ class HomeController extends BaseController {
         showCloseIcon: true,
         title: 'Succes',
         desc: 'Product Added',
-        btnOkOnPress: () {},
+        btnOkOnPress: () async {
+          createRandomId();
+           clearTextFields();
+        },
         btnOkIcon: Icons.check_circle,
         onDissmissCallback: (type) {},
       ).show();
-      await clearTextFields();
       print("Product Added");
     }).catchError((error) => print("Failed to add user: $error"));
   }
