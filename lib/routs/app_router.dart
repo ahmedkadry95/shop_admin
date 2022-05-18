@@ -1,8 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_admin/app/add_product/view/add_product_view.dart';
 import 'package:shop_admin/app/home/view/home_view.dart';
 import 'package:shop_admin/app/log_in/view/log_in_view.dart';
+import 'package:shop_admin/app/reciver_orders/recived_orders_view/recived_orders_view.dart';
 import 'package:shop_admin/app/splash/view/splash_view.dart';
 import 'package:shop_admin/routs/routing_data.dart';
 import 'package:shop_admin/routs/routs_names.dart';
@@ -24,8 +25,11 @@ class AppRouter {
       case RouteName.logIn:
         return _getPageRoute(const LogInView(), settings);
       case RouteName.home:
-        return _getPageRoute(const HomeView(), settings);
-
+        return _getPageRoute( HomeView(), settings);
+      case RouteName.receivedOrders:
+        return _getPageRoute(ReceivedOrdersView(), settings);
+      case RouteName.addProduct:
+        return _getPageRoute(AddProductView(), settings);
       default:
         return _getPageRoute(const SplashView(), settings);
     }
