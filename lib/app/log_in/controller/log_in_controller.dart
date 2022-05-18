@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shop_admin/base_controller.dart';
@@ -34,8 +33,6 @@ class LoginController extends BaseController {
   CollectionReference banner = FirebaseFirestore.instance.collection('banner');
 
   void addBanner() {
-    banner.add({
-      'test': 'test',
-    });
+    banner.add({'test': 'test'});
   }
 }
