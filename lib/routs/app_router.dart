@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:shop_admin/app/add_product/view/add_product_view.dart';
 import 'package:shop_admin/app/home/view/home_view.dart';
 import 'package:shop_admin/app/log_in/view/log_in_view.dart';
-import 'package:shop_admin/app/reciver_orders/recived_orders_view/recived_orders_view.dart';
 import 'package:shop_admin/app/splash/view/splash_view.dart';
 import 'package:shop_admin/routs/routing_data.dart';
 import 'package:shop_admin/routs/routs_names.dart';
+
+import '../app/reciver_orders/view/recived_orders_view.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {

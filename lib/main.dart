@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:shop_admin/routs/app_router.dart';
 import 'package:shop_admin/routs/routs_names.dart';
 import 'package:shop_admin/services/navigation_service.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
