@@ -7,10 +7,24 @@ class ReceivedOrdersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ReceivedOrdersController>(
-      onModelReady: (controller) async {},
+      onModelReady: (controller) {
+        controller.getCurrentOrders();
+      },
       builder: (context, controller, child) {
         return Scaffold(
-
+          body: ListView.builder(
+              itemCount: controller.ordersList.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Column(
+                    children: [
+                      Text(controller.ordersList[index].orderId.toString()),
+                      Text(controller.ordersList[index].userToken.toString()),
+                      Text(controller.ordersList[index].orderState.toString()),
+                    ],
+                  ),
+                );
+              }),
         );
       },
     );
